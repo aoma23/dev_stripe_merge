@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Stripe Merger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        .canvas-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        canvas {
+            border: 1px solid black;
+            margin: 20px auto;
+            width: 95%;
+            height: auto;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .drop-zone {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 16px;
+            color: #ccc;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .drop-zone.dragover {
+            border-color: #333;
+            color: #333;
+        }
+
+        .drop-zone img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        .drop-zone input[type="file"] {
+            display: none;
+        }
+
+        .drop-zone span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .image-preview-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .image-preview-container button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Image Stripe Merger</h1>
+    <div class="image-container" id="imageContainer">
+        <div class="image-preview-container" id="imagePreviewContainer0">
+            <div id="dropZone0" class="drop-zone">
+                <span>Click or Drop Image Here</span>
+                <img id="imagePreview0" src="sample_a.webp" alt="Image 0">
+                <input type="file" id="inputFile0" accept="image/*">
+            </div>
+            <button onclick="removeImage(0)">Remove</button>
+        </div>
+        <div class="image-preview-container" id="imagePreviewContainer1">
+            <div id="dropZone1" class="drop-zone">
+                <span>Click or Drop Image Here</span>
+                <img id="imagePreview1" src="sample_b.webp" alt="Image 1">
+                <input type="file" id="inputFile1" accept="image/*">
+            </div>
+            <button onclick="removeImage(1)">Remove</button>
+        </div>
+    </div>
+    <button onclick="addImage()">Add Image</button>
+    <input type="number" id="stripeCount" placeholder="Stripe Count" value="3">
+    <input type="number" id="angle" placeholder="Angle" value="45">
+    <button id="verticalButton">Vertical</button>
+    <button id="horizontalButton">Horizontal</button>
+    <button id="diagonalButton">Diagonal</button>
+    <br>
+    <div class="canvas-container">
+        <canvas id="canvas"></canvas>
+    </div>
+    <button id="copyButton">Copy to Clipboard</button>
+    <button id="downloadButton">Download Image</button>
+    <script src="script.js"></script>
+</body>
+
+</html>
