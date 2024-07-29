@@ -33,6 +33,8 @@ window.onload = function () {
     downloadButton.addEventListener('click', downloadImage);
 
     enableCanvasDraggingAndScaling();
+
+    checkScrollBar();
 }
 
 function setupDropZone(index) {
@@ -347,4 +349,26 @@ function downloadImage() {
     link.download = 'merged_image.png';
     link.href = tempCanvas.toDataURL('image/png');
     link.click();
+}
+
+function adjustImageContainerAlignment() {
+    const container = document.getElementById('imageContainer');
+    if (container.scrollWidth > container.clientWidth) {
+        // 画像が多くて横スクロールバーが表示された時は左寄せにしないと左側が見切れてしまうのでその対応。
+        container.style.justifyContent = 'flex-start';
+    } else {
+        container.style.justifyContent = 'center';
+    }
+}
+
+function checkScrollBar() {
+    // 初回チェック
+    window.addEventListener('load', adjustImageContainerAlignment);
+
+    // 画像が追加されたときのチェック
+    const imageContainer = document.getElementById('imageContainer');
+    imageContainer.addEventListener('DOMNodeInserted', adjustImageContainerAlignment);
+
+    // ウィンドウサイズが変更されたときのチェック
+    window.addEventListener('resize', adjustImageContainerAlignment);
 }
