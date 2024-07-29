@@ -26,10 +26,13 @@
 
         .image-container {
             display: flex;
-            flex-direction: column;
+            flex-wrap: nowrap;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             margin: 10px 0;
+            overflow-x: auto;
+            width: 100%;
         }
 
         .drop-zone {
@@ -72,6 +75,7 @@
 
         .image-preview-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
             gap: 10px;
             margin: 10px 0;
@@ -84,7 +88,7 @@
 </head>
 
 <body>
-    <h1>Image Stripe Merger</h1>
+    <h1>Stripe Merge</h1>
     <div class="image-container" id="imageContainer">
         <div class="image-preview-container" id="imagePreviewContainer0">
             <div id="dropZone0" class="drop-zone">
@@ -92,7 +96,6 @@
                 <img id="imagePreview0" src="sample_a.webp" alt="Image 0">
                 <input type="file" id="inputFile0" accept="image/*">
             </div>
-            <button onclick="removeImage(0)">Remove</button>
         </div>
         <div class="image-preview-container" id="imagePreviewContainer1">
             <div id="dropZone1" class="drop-zone">
@@ -100,10 +103,8 @@
                 <img id="imagePreview1" src="sample_b.webp" alt="Image 1">
                 <input type="file" id="inputFile1" accept="image/*">
             </div>
-            <button onclick="removeImage(1)">Remove</button>
         </div>
     </div>
-    <button onclick="addImage()">Add Image</button>
     <input type="number" id="stripeCount" placeholder="Stripe Count" value="3">
     <input type="number" id="angle" placeholder="Angle" value="45">
     <button id="verticalButton">Vertical</button>

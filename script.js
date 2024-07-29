@@ -20,6 +20,7 @@ window.onload = function () {
         }
         setupDropZone(index);
     });
+    addImage();
 
     verticalButton.addEventListener('click', () => setAngleAndUpdatePreview(0));
     horizontalButton.addEventListener('click', () => setAngleAndUpdatePreview(90));
@@ -70,8 +71,18 @@ function handleFile(file, imagePreview, index) {
             imagePreview.src = e.target.result;
             images[index].element.src = e.target.result;
             images[index].element.onload = updatePreview;
+
+            // <span>要素を削除する
+            const dropZone = document.getElementById(`dropZone${index}`);
+            const spanElement = dropZone.querySelector('span');
+            if (spanElement) {
+                dropZone.removeChild(spanElement);
+            }
         };
         reader.readAsDataURL(file);
+        if (index == images.length - 1) {
+            addImage();
+        }
     }
 }
 
@@ -86,33 +97,18 @@ function addImage() {
     newDropZone.classList.add('drop-zone');
     newDropZone.id = `dropZone${newIndex}`;
     newDropZone.innerHTML = `
-        <span>Click or Drop Image Here</span>
-        <img id="imagePreview${newIndex}" src="" alt="Image ${newIndex}">
+        <span>If you want to add an image, click or drop here.</span>
+        <img id="imagePreview${newIndex}">
         <input type="file" id="inputFile${newIndex}" accept="image/*">
     `;
 
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove';
-    removeButton.onclick = () => removeImage(newIndex);
-
     newImagePreviewContainer.appendChild(newDropZone);
-    newImagePreviewContainer.appendChild(removeButton);
     imageContainer.appendChild(newImagePreviewContainer);
 
     images.push({ src: '', element: new Image() });
     setupDropZone(newIndex);
 
     imageCount++;
-}
-
-function removeImage(index) {
-    const imagePreviewContainer = document.getElementById(`imagePreviewContainer${index}`);
-    if (imagePreviewContainer) {
-        imagePreviewContainer.remove();
-        images[index] = null;
-        images = images.filter(image => image !== null);
-        updatePreview();
-    }
 }
 
 function setAngleAndUpdatePreview(angle) {
