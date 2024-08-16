@@ -4,41 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Stripe Merger</title>
+    <title>Image Stripe Merge</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            margin: 20px;
         }
 
-        .canvas-container {
-            display: flex;
-            justify-content: center;
+        .head-container {
+            height: 5vh;
         }
 
-        canvas {
-            border: 1px solid black;
-            margin: 20px auto;
-            width: 95%;
-            height: auto;
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #333;
+            margin: 0;
         }
 
         .image-container {
+            height: 20vh;
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin: 10px 0;
             overflow-x: auto;
-            width: 100%;
+            width: 100vw;
         }
 
         .drop-zone {
-            min-width: 200px;
-            width: 200px;
-            height: 200px;
+            min-width: 19vw;
+            width: 19vw;
+            height: 19vh;
             border: 2px dashed #ccc;
             border-radius: 10px;
             display: flex;
@@ -85,11 +85,41 @@
         .image-preview-container button {
             cursor: pointer;
         }
+
+        .edit-container {
+            height: 8vh;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .item {
+            flex: 1;
+        }
+
+        input[type="number"] {
+            width: 40px;
+        }
+
+        .canvas-container {
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        canvas {
+            border: 1px solid black;
+            max-width: 95%;
+            height: auto;
+        }
     </style>
 </head>
 
 <body>
-    <h1>Stripe Merge</h1>
+    <div class="head-container">
+        <h1>Stripe Merge</h1>
+    </div>
     <div class="image-container" id="imageContainer">
         <div class="image-preview-container" id="imagePreviewContainer0">
             <div id="dropZone0" class="drop-zone">
@@ -106,17 +136,29 @@
             </div>
         </div>
     </div>
-    <input type="number" id="stripeCount" placeholder="Stripe Count" value="3">
-    <input type="number" id="angle" placeholder="Angle" value="45">
-    <button id="verticalButton">Vertical</button>
-    <button id="horizontalButton">Horizontal</button>
-    <button id="diagonalButton">Diagonal</button>
-    <br>
+
+    <div class="edit-container">
+        <div class="item">
+            <label for="stripeCount">Lines:</label>
+            <input type="number" id="stripeCount" placeholder="Stripe Count" value="3">
+        </div>
+
+        <div class="item">
+            <label for="angle">Angle:</label>
+            <input type="number" id="angle" placeholder="Angle" value="45">
+            <button id="verticalButton">Vertical</button>
+            <button id="horizontalButton">Horizontal</button>
+            <button id="diagonalButton">Diagonal</button>
+        </div>
+        <div class="item">
+            <button id="copyButton">Copy</button>
+            <button id="downloadButton">Download</button>
+        </div>
+    </div>
+
     <div class="canvas-container">
         <canvas id="canvas"></canvas>
     </div>
-    <button id="copyButton">Copy to Clipboard</button>
-    <button id="downloadButton">Download Image</button>
     <script src="script.js"></script>
 </body>
 

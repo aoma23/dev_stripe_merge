@@ -35,6 +35,7 @@ window.onload = function () {
     enableCanvasDraggingAndScaling();
 
     checkScrollBar();
+    updatePreview();
 }
 
 function setupDropZone(index) {
@@ -367,7 +368,17 @@ function checkScrollBar() {
 
     // 画像が追加されたときのチェック
     const imageContainer = document.getElementById('imageContainer');
-    imageContainer.addEventListener('DOMNodeInserted', adjustImageContainerAlignment);
+
+    // MutationObserverを使用して画像が追加されたときのチェック
+    const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+            if (mutation.addedNodes.length > 0) {
+                adjustImageContainerAlignment();
+            }
+        });
+    });
+
+    observer.observe(imageContainer, { childList: true });
 
     // ウィンドウサイズが変更されたときのチェック
     window.addEventListener('resize', adjustImageContainerAlignment);
